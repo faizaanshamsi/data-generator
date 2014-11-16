@@ -1,0 +1,12 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    options_library (1.0.3)
+    redis (3.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  options_library
+  redis

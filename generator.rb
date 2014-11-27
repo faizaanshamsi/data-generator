@@ -14,7 +14,7 @@ def build_chain(raw_chain, stock, expiration, premium)
   raw_chain.each do |option|
     option_strike = option['strike']
     direction = option['description'] =~ /Call/ ? 'call' : 'put'
-    chain << StockOption.new({stock: stock, expiration: expiration, strike: option_strike, premium: premium, direction: direction})
+    chain << StockOption.new({stock: stock, expiration: expiration, strike: option_strike, premium: premium, direction: direction, name: option['symbol']})
   end
   chain
 end

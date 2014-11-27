@@ -1,11 +1,12 @@
 class StockOption
-  attr_reader :stock, :expiration, :strike, :premium, :direction
+  attr_reader :stock, :expiration, :strike, :premium, :direction, :name
   def initialize(opts)
     @stock = opts[:stock]
     @expiration = Time.parse(opts[:expiration])
     @strike = opts[:strike]
     @premium = opts[:premium]
     @direction = opts[:direction]
+    @name = opts[:name]
   end
 
   def interest
@@ -41,10 +42,6 @@ class StockOption
     midpoint + premium
   end
 
-  def name
-    stock.ticker + expiration.strftime('%d%m%y') + direction_print + sprintf("%08d", strike * 1000)
-  end
-
   def formatted_output
     { Type: direction,
       name: name,
@@ -52,16 +49,10 @@ class StockOption
       strike_price: strike,
       current_bid: bid,
       current_ask: ask,
-      midpoint: midpoint, 
+      midpoint: midpoint,
       close: 0,
       last_price: 0,
-      moneyness: 0 
+      moneyness: 0
     }
-  end
-
-  private
-
-  def direction_print
-    direction == 'put' ? 'P' : 'C'
   end
 end

@@ -1,49 +1,21 @@
 class StockOptionGenerator
   attr_reader :stock, :expiration, :premium
+  attr_accessor :chain
 
-  def initialize(stock, expiration, premium)
+  def initialize(stock, expiration, premium, initial_chain)
     @stock = stock
     @expiration = expiration
     @premium = premium
+    @chain = initial_chain
   end
 
-  def put_strike_prices
-    prices = []
-    (5..15).each do |i|
-      pct = i / 100.0
-      prices << (stock.price * (1 - pct))
-    end
-    prices
-  end
-
-  def call_strike_prices
-    prices = []
-    (5..15).each do |i|
-      pct = i / 100.0
-      prices << (stock.price * (1 + pct))
-    end
-    prices
-  end
-  
-  def options
-    @options ||= generate
-  end
-
-  def generate
-    options = []
-    put_strike_prices.each do |psp|
-      options << StockOption.new({stock: stock, strike: psp, expiration: expiration, premium: premium, direction: 'put'})
-    end
-
-    call_strike_prices.each do |csp|
-      options << StockOption.new({stock: stock, strike: csp, expiration: expiration, premium: premium, direction: 'call'})
-    end
-    options
+  def change_stock_price
+    stock.price = stock.price * ((rand(50) + 75.0) / 100.0)
   end
 
   def formatted_output
     option_output = []
-    options.each do |option|
+    chain.each do |option|
       option_output << option.formatted_output
     end
     { ticker: stock.ticker,

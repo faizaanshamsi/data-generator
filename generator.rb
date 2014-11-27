@@ -70,7 +70,7 @@ while true do
   sleep 1
   sg.change_stock_price
   puts sg.formatted_output.to_json
-  # redis_output = sg.formatted_output.to_json
+  redis_output = sg.formatted_output.to_json
   # push to redis
-  # redis.lpush(stock[:ticker], redis_output)
+  redis.lpush(s.ticker, redis_output)
 end

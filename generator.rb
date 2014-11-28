@@ -10,7 +10,7 @@ def stock
   {
     ticker: 'GOOGL',
     price: (530 + rand(50)),
-    sigma: 0.1,
+    sigma: 0.25,
     dividend: 0
   }
 end
@@ -22,7 +22,7 @@ while true do
   sleep 1
   s = Stock.new(stock)
   sg = StockOptionGenerator.new(s, expiration, 0.1)
-  
+  puts sg.formatted_output.to_json
   # push to redisi
   redis.lpush(stock[:ticker], sg.formatted_output.to_json)
 end

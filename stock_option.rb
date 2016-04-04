@@ -34,7 +34,8 @@ class StockOption
   end
 
   def bid
-    midpoint - premium
+    result = midpoint - premium
+    result < 0 ? 0 : result
   end
 
   def ask
@@ -52,10 +53,10 @@ class StockOption
       strike_price: strike,
       current_bid: bid,
       current_ask: ask,
-      midpoint: midpoint, 
+      midpoint: midpoint,
       close: 0,
       last_price: 0,
-      moneyness: 0 
+      moneyness: 0
     }
   end
 
